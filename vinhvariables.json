@@ -1,0 +1,27 @@
+{
+	"id": "0236213f-dc5f-4973-8003-e8bd3c6d1abd",
+	"name": "My Environment",
+	"values": [
+		{
+			"key": "url",
+			"value": "https://simple-books-api.glitch.me/",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "bearToken",
+			"value": "4ef18079e75a11c035a8ae463dcc52cf43040bd3dc47aa51f4c31b5646464f38",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "token",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		}
+	],
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2022-10-17T07:33:10.175Z",
+	"_postman_exported_using": "Postman/10.0.22"
+}

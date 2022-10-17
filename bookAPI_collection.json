@@ -1,0 +1,370 @@
+{
+	"info": {
+		"_postman_id": "ee566fd9-06e7-42bf-8551-8539d81b1115",
+		"name": "BooksAPI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21739726"
+	},
+	"item": [
+		{
+			"name": "Get Bear Token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 409, because the client name is already registered\",function(){\r",
+							"    pm.response.to.have.status(409);\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"clientName\": \"VinhTester2\",\r\n   \"clientEmail\": \"abcd12@gmail.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://simple-books-api.glitch.me/api-clients/",
+					"protocol": "https",
+					"host": [
+						"simple-books-api",
+						"glitch",
+						"me"
+					],
+					"path": [
+						"api-clients",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Books status",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}status",
+					"host": [
+						"{{url}}status"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Books list",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// var response = pm.response.json();\r",
+							"// var id1 = response[0].id;console.log(id1);\r",
+							"\r",
+							"\r",
+							"// pm.test(\"response body obj 1\",function(){\r",
+							"//     pm.expect(id1).to.be.eql(1);\r",
+							"//     // pm.expect(pm.response.text()).to.include(\"\\\"status\\\":\\\"200 OK\\\"\");\r",
+							"// })\r",
+							"// console.log(response);\r",
+							"\r",
+							"\r",
+							"//==========>Test the Data Type of the Response<==========\r",
+							"// pm.test(\"Test data type of the response\",function(){\r",
+							"//     const jsonData = pm.response.json();\r",
+							"//     pm.expect(jsonData[0].name).to.be.a(\"string\");\r",
+							"//     pm.expect(jsonData[0].available).to.be.a(\"boolean\");\r",
+							"//     pm.expect(jsonData[0].id).to.be.a(\"number\");\r",
+							"// });\r",
+							"\r",
+							"//==========>Checking Properties and Properties Value<==========\r",
+							"pm.test(\"Check that we have needed properties and properties value is correct\",function(){\r",
+							"    const jsonData = pm.response.json();\r",
+							"    // const jsonData = JSON.parse(responseBody);Do the same thing with command above.\r",
+							"    pm.expect(jsonData[0]).to.have.property(\"name\");\r",
+							"    pm.expect(jsonData[0].name).to.include(\"Russ\");\r",
+							"    pm.expect(jsonData[0].name).to.eql(\"The Russian\");\r",
+							"\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://simple-books-api.glitch.me/books",
+					"protocol": "https",
+					"host": [
+						"simple-books-api",
+						"glitch",
+						"me"
+					],
+					"path": [
+						"books"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Submit an order",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{bearToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"bookId\": 3,\r\n  \"customerName\": \"Duong Thanh Vinh\"\r\n}\r\n\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://simple-books-api.glitch.me/orders",
+					"protocol": "https",
+					"host": [
+						"simple-books-api",
+						"glitch",
+						"me"
+					],
+					"path": [
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get an order",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// pm.environment.set(\"abc\", \"1234\");\r",
+							"// console.log(pm.environment.get(\"abc\"));\r",
+							"\r",
+							"// console.log(pm.environment.has(\"abc\"));\r",
+							"// pm.environment.unset(\"abc\");\r",
+							"\r",
+							"// console.log(pm.environment.toObject());\r",
+							"\r",
+							"// pm.globals.clear();\r",
+							"\r",
+							"// console.log(pm.environment.toObject());\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"response code is 200\",function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{bearToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}orders/jxtH7QxUHkrx_bGxr8_Ee",
+					"host": [
+						"{{url}}orders"
+					],
+					"path": [
+						"jxtH7QxUHkrx_bGxr8_Ee"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all orders",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"response code is 200\",function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"var time = 5000;\r",
+							"pm.test(\"reponse time is less than 5000\",function(){\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(time);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"response body test has property ' quantity '\",function(){\r",
+							"    // pm.expect(pm.response.text()).to.include(\"\\\"status\\\":\\\"200 OK\\\"\");\r",
+							"    // pm.expect(pm.response.text()).not.include(\"[]\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"customerName\");\r",
+							"    console.log(\"Verify response body has property 'customerName'\")\r",
+							"    const jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData[0]).to.have.property(\"quantity\");\r",
+							"    pm.expect(jsonData[0].quantity).to.eql(1);\r",
+							"});\r",
+							"\r",
+							"// var getTime = pm.environment.get(\"Response_Time\");\r",
+							"// pm.test(\"Response time is less than \" + getTime.toString()+\"ms\",function(){\r",
+							"//     pm.expect(pm.response.responseTime).to.be.below(parseInt(getTime));\r",
+							"// })\r",
+							"\r",
+							"\r",
+							"var isAvailable = pm.response.json().available;\r",
+							"if(isAvailable==false){\r",
+							"    postman.setNextRequest(\"nameOfNextRequest\");\r",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{bearToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}orders",
+					"host": [
+						"{{url}}orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update an order",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{bearToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"customerName\": \"Duong Thanh Vinh\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://simple-books-api.glitch.me/orders/Xe0Uy11TZcQ0AUyrStsKY",
+					"protocol": "https",
+					"host": [
+						"simple-books-api",
+						"glitch",
+						"me"
+					],
+					"path": [
+						"orders",
+						"Xe0Uy11TZcQ0AUyrStsKY"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete an order",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{bearToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://simple-books-api.glitch.me/orders/Xe0Uy11TZcQ0AUyrStsKY",
+					"protocol": "https",
+					"host": [
+						"simple-books-api",
+						"glitch",
+						"me"
+					],
+					"path": [
+						"orders",
+						"Xe0Uy11TZcQ0AUyrStsKY"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
